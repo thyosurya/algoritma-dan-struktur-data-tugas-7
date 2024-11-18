@@ -1,6 +1,3 @@
-//
-// Created by HP on 15/11/2024.
-//
 #include <iostream>
 #include <string>
 using namespace std;
@@ -13,20 +10,13 @@ struct Mahasiswa {
     float Nilai;
 };
 
-int cariBagidua(Mahasiswa mhs[], int jumlah, string namaDicari) {
-    int kiri = 0;
-    int kanan = jumlah - 1;
-    while (kiri <= kanan) {
-        int tengah = (kiri + kanan) / 2;
-        if (mhs[tengah].Nama == namaDicari) {
-            return tengah; // mengembalikan indeks tempat nama ditemukan
-        } else if (mhs[tengah].Nama < namaDicari) {
-            kiri = tengah + 1;
-        } else {
-            kanan = tengah - 1;
+int cariBeruntun(Mahasiswa mhs[], int jumlah, string namaDicari) {
+    for (int i = 0; i < jumlah; i++) {
+        if (mhs[i].Nama == namaDicari) {
+            return i;
         }
     }
-    return -1; // nama tidak ditemukan
+    return -1;
 }
 
 int main() {
@@ -37,15 +27,21 @@ int main() {
         {126, "Dedi", "Malang", "TI-B", 80.0},
         {127, "Evi", "Medan", "TI-A", 88.5}
     };
+    
     string namaDicari;
     cout << "Masukkan nama mahasiswa yang dicari: ";
-    cin >> namaDicari;
+    getline(cin, namaDicari);  // Menggunakan getline agar bisa membaca nama dengan spasi
 
-    int posisi = cariBagidua(mhs, 5, namaDicari);
+    int posisi = cariBeruntun(mhs, 5, namaDicari);
     if (posisi != -1) {
-        cout << "Nama ditemukan di indeks ke-" << posisi << endl;
+        cout << "Nama ditemukan!" << endl;
+        cout << "NIM   : " << mhs[posisi].NIM << endl;
+        cout << "Nama  : " << mhs[posisi].Nama << endl;
+        cout << "Alamat: " << mhs[posisi].Alamat << endl;
+        cout << "Kelas : " << mhs[posisi].Kelas << endl;
+        cout << "Nilai : " << mhs[posisi].Nilai << endl;
     } else {
-        cout << "Nama tidak ditemukan" << endl;
+        cout << "Nama tidak ditemukan." << endl;
     }
 
     return 0;
